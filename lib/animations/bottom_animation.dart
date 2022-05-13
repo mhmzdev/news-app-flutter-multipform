@@ -13,10 +13,10 @@ class Animator extends StatefulWidget {
   ) : super(key: key);
 
   @override
-  _AnimatorState createState() => _AnimatorState();
+  AnimatorState createState() => AnimatorState();
 }
 
-class _AnimatorState extends State<Animator>
+class AnimatorState extends State<Animator>
     with SingleTickerProviderStateMixin {
   Timer? timer;
   AnimationController? animationController;
