@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/configs/configs.dart';
+import 'package:news_app/screens/splash/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+      },
     );
   }
 }
