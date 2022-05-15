@@ -6,7 +6,6 @@ export 'ui_props.dart';
 export 'space.dart';
 export 'space_ext.dart';
 export 'ui.dart';
-export 'package:collection/collection.dart';
 
 export 'core_theme.dart' show fontFamily;
 export 'date_ext.dart';

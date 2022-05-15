@@ -70,10 +70,10 @@ wait() {
   return duration;
 }
 
-class WidgetAnimator extends StatelessWidget {
+class BottomAnimator extends StatelessWidget {
   final Widget child;
 
-  const WidgetAnimator({
+  const BottomAnimator({
     Key? key,
     required this.child,
   }) : super(key: key);
