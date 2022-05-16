@@ -20,8 +20,8 @@ class NewsCard extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 200,
-          width: 370,
+          height: AppDimensions.normalize(90),
+          width: AppDimensions.normalize(300),
           child: Card(
             color: AppTheme.c!.primary,
             shadowColor: Colors.black,
