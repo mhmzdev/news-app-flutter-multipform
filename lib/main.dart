@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:news_app/providers/category_provider.dart';
 import 'package:news_app/screens/dashboard/dashboard.dart';
 import 'package:news_app/screens/splash/splash.dart';
+import 'package:provider/provider.dart';
 import 'configs/core_theme.dart' as theme;
 
 void main() {
@@ -18,15 +20,20 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
-    return MaterialApp(
-      title: 'News App',
-      debugShowCheckedModeBanner: false,
-      theme: theme.themeLight,
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/dashboard': (context) => const DashboardScreen(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CategoryProvider()),
+      ],
+      child: MaterialApp(
+        title: 'News App',
+        debugShowCheckedModeBanner: false,
+        theme: theme.themeLight,
+        initialRoute: '/splash',
+        routes: {
+          '/splash': (context) => const SplashScreen(),
+          '/dashboard': (context) => const DashboardScreen(),
+        },
+      ),
     );
   }
 }
