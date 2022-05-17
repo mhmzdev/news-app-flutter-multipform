@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/animations/bottom_animation.dart';
 import 'package:news_app/configs/app.dart';
 import 'package:news_app/configs/configs.dart';
 import 'package:news_app/providers/category_provider.dart';
@@ -7,11 +9,26 @@ import 'package:news_app/utils/app_utils.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 import 'package:provider/provider.dart';
 
+import '../../bloc/top_headlines/cubit/top_headlines_cubit.dart';
+import '../../models/news_model.dart';
+
 part 'widgets/_category_tabs.dart';
 part 'widgets/_category_button.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    final newsCubit = BlocProvider.of<TopHeadlinesCubit>(context);
+    newsCubit.fetchRepo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +94,31 @@ class DashboardScreen extends StatelessWidget {
                   )
                 ],
               ),
-              const NewsCard(),
+              BlocBuilder<TopHeadlinesCubit, TopHeadlinesState>(
+                builder: (context, state) {
+                  if (state is TopHeadlinesLoading) {
+                    return const LinearProgressIndicator();
+                  } else if (state is TopHeadlinesFailure) {
+                    return Text(state.error!);
+                  } else if (state is TopHeadlinesSuccess) {
+                    List<News> recentNews =
+                        List.generate(3, (index) => state.data![index]);
+                    return Column(
+                      children: recentNews
+                          .map(
+                            (news) => BottomAnimator(
+                              child: NewsCard(
+                                news: news,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    );
+                  } else {
+                    return const Text('Something Went Wrong!');
+                  }
+                },
+              ),
               Space.y2!,
               Text(
                 'Picks for you',

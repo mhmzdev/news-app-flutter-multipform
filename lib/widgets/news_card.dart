@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/configs/configs.dart';
+import 'package:news_app/models/news_model.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({Key? key}) : super(key: key);
+  final News? news;
+  const NewsCard({Key? key, this.news,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +52,7 @@ class NewsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        dummy.length > 10
-                            ? '${dummy.substring(0, 30)}...'
-                            : dummy,
+                        news!.name,
                         style: AppText.h2b!.copyWith(
                           height: 1.1,
                         ),
@@ -69,7 +69,7 @@ class NewsCard extends StatelessWidget {
             ),
             Space.y1!,
             Text(
-              'News body will be here with some 200 chars for the sake of getting started...',
+              news!.description,
               style: AppText.l1!.copyWith(
                 color: Colors.grey,
               ),
