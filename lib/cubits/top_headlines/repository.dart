@@ -1,4 +1,4 @@
-part of 'top_headlines_cubit.dart';
+part of 'cubit.dart';
 
 class NewsRepository {
   Future<List<News>> fetchNews() => NewsDataProvider.fetchNews();

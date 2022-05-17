@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/bloc/top_headlines/cubit/top_headlines_cubit.dart';
+import 'package:news_app/cubits/top_headlines/cubit.dart';
 import 'package:news_app/providers/category_provider.dart';
 import 'package:news_app/screens/dashboard/dashboard.dart';
 import 'package:news_app/screens/splash/splash.dart';
@@ -24,12 +24,8 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => CategoryProvider(),
-        ),
-        BlocProvider(
-          create: (context) => TopHeadlinesCubit(),
-        )
+        BlocProvider(create: (context) => TopHeadlinesCubit()),
+        ChangeNotifierProvider(create: (_) => CategoryProvider()),
       ],
       child: MaterialApp(
         title: 'News App',

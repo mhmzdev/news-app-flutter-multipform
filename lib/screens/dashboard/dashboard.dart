@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/animations/bottom_animation.dart';
 import 'package:news_app/configs/app.dart';
 import 'package:news_app/configs/configs.dart';
+import 'package:news_app/cubits/top_headlines/cubit.dart';
+import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
-import 'package:news_app/widgets/news_card.dart';
+import 'package:news_app/widgets/headlines_card.dart';
 import 'package:news_app/utils/app_utils.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 import 'package:provider/provider.dart';
-
-import '../../bloc/top_headlines/cubit/top_headlines_cubit.dart';
-import '../../models/news_model.dart';
 
 part 'widgets/_category_tabs.dart';
 part 'widgets/_category_button.dart';
@@ -26,7 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     final newsCubit = BlocProvider.of<TopHeadlinesCubit>(context);
-    newsCubit.fetchRepo();
+    newsCubit.fetchNews();
     super.initState();
   }
 
@@ -107,7 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       children: recentNews
                           .map(
                             (news) => BottomAnimator(
-                              child: NewsCard(
+                              child: HeadlinesCard(
                                 news: news,
                               ),
                             ),

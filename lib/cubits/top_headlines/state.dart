@@ -1,4 +1,4 @@
-part of 'top_headlines_cubit.dart';
+part of 'cubit.dart';
 
 abstract class TopHeadlinesState extends Equatable {
   final List<News>? data;

@@ -4,29 +4,40 @@ class News {
   final String id;
   final String name;
   final String description;
+  final String country;
+  final String url;
+
   News({
     required this.id,
     required this.name,
     required this.description,
+    required this.country,
+    required this.url,
   });
 
   News copyWith({
     String? id,
     String? name,
     String? description,
+    String? country,
+    String? url,
   }) {
     return News(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
+      country: country ?? this.country,
+      url: url ?? this.url,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'id': id,
       'name': name,
       'description': description,
+      'country': country,
+      'url': url,
     };
   }
 
@@ -35,16 +46,19 @@ class News {
       id: map['id'],
       name: map['name'],
       description: map['description'],
+      country: map['country'],
+      url: map['url'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory News.fromJson(String source) =>
-      News.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory News.fromJson(String source) => News.fromMap(json.decode(source));
 
   @override
-  String toString() => 'News(id: $id, name: $name, description: $description)';
+  String toString() {
+    return 'News(id: $id, name: $name, description: $description, country: $country, url: $url)';
+  }
 
   @override
   bool operator ==(Object other) {
@@ -53,9 +67,17 @@ class News {
     return other is News &&
         other.id == id &&
         other.name == name &&
-        other.description == description;
+        other.description == description &&
+        other.country == country &&
+        other.url == url;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ description.hashCode;
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        description.hashCode ^
+        country.hashCode ^
+        url.hashCode;
+  }
 }
