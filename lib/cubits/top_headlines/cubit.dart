@@ -15,9 +15,9 @@ class TopHeadlinesCubit extends Cubit<TopHeadlinesState> {
 
   Future<void> fetchNews() async {
     emit(const TopHeadlinesLoading());
+
     try {
       final data = await repository.fetchNews();
-
       emit(
         TopHeadlinesSuccess(data: data),
       );

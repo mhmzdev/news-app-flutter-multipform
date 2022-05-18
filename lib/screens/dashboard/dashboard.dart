@@ -8,7 +8,7 @@ import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
 import 'package:news_app/widgets/headlines_card.dart';
 import 'package:news_app/utils/app_utils.dart';
-import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 part 'widgets/_category_tabs.dart';
@@ -25,7 +25,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     final newsCubit = BlocProvider.of<TopHeadlinesCubit>(context);
-    newsCubit.fetchNews();
+    if (newsCubit.state.data == null || newsCubit.state.data!.isEmpty) {
+      newsCubit.fetchNews();
+    }
     super.initState();
   }
 
@@ -58,7 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                         Space.y!,
                         Text(
-                          'Monday, 17 May',
+                          DateFormat('EEEE, dd MMM').format(DateTime.now()),
                           style: AppText.l1!.copyWith(
                             color: Colors.grey,
                           ),
