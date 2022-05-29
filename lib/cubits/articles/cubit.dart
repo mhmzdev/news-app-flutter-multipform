@@ -20,10 +20,10 @@ class ArticlesCubit extends Cubit<ArticlesState> {
 
   final repo = ArticlesRepository();
 
-  Future<void> fetch(String keyword) async {
+  Future<void> fetch({String? keyword}) async {
     emit(const ArticlesFetchLoading());
     try {
-      final data = await repo.fetch(keyword);
+      final data = await repo.fetch(keyword: keyword);
 
       emit(ArticlesFetchSuccess(data: data));
     } catch (e) {

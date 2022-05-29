@@ -32,7 +32,7 @@ class TopStoriesScreen extends StatelessWidget {
                 .map(
                   (e) => BottomAnimator(
                     child: HeadlinesCard(
-                      news: e,
+                      news: e!,
                     ),
                   ),
                 )

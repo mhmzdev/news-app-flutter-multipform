@@ -4,8 +4,10 @@ class ArticlesDataProvider {
   static final dio = Dio();
   static const apiKey = Constants.apiKey;
 
-  static Future<List<Article>> fetch(String keyword) async {
+  static Future<List<Article>> fetch({String? keyword}) async {
     try {
+      keyword ?? 'latest';
+
       final response = await dio.get(
         'https://newsapi.org/v2/everything/q=$keyword',
         options: Options(

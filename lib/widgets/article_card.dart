@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/configs/app.dart';
 import 'package:news_app/configs/configs.dart';
-import 'package:news_app/models/news.dart';
+import 'package:news_app/models/article/article.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HeadlinesCard extends StatelessWidget {
-  final News news;
-  const HeadlinesCard({
+class ArticleCard extends StatelessWidget {
+  final Article article;
+  const ArticleCard({
     Key? key,
-    required this.news,
+    required this.article,
   }) : super(key: key);
 
   @override
@@ -33,7 +32,7 @@ class HeadlinesCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () => launchUrl(
-          Uri.parse(news.url),
+          Uri.parse(article.url!),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +48,7 @@ class HeadlinesCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  news.name.substring(0, 1),
+                  article.title!.substring(0, 1),
                   style: AppText.h1b!.copyWith(
                     color: Colors.grey,
                   ),
@@ -62,22 +61,14 @@ class HeadlinesCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    news.description.length > 50
-                        ? '${news.description.substring(0, 50)}...'
-                        : news.description,
+                    article.description!.length > 50
+                        ? '${article.description!.substring(0, 50)}...'
+                        : article.description!,
                     style: AppText.h3b!.copyWith(
                       height: 1.1,
                     ),
                   ),
                   Space.y!,
-                  Row(
-                    children: [
-                      Text(
-                        '${App.flag(news.country)} ${news.name}',
-                        style: AppText.b2,
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
