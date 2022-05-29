@@ -1,7 +1,7 @@
 part of 'cubit.dart';
 
 abstract class TopHeadlinesState extends Equatable {
-  final List<News>? data;
+  final List<News?>? data;
   final String? error;
 
   const TopHeadlinesState({this.data, this.error});
@@ -18,7 +18,7 @@ class TopHeadlinesLoading extends TopHeadlinesState {
 }
 
 class TopHeadlinesSuccess extends TopHeadlinesState {
-  const TopHeadlinesSuccess({List<News>? data}) : super(data: data);
+  const TopHeadlinesSuccess({List<News?>? data}) : super(data: data);
 }
 
 class TopHeadlinesFailure extends TopHeadlinesState {

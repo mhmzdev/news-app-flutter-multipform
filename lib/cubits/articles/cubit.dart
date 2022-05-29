@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:news_app/constants/constants.dart';
 
 import 'package:news_app/models/article/article.dart';
 
@@ -18,10 +20,10 @@ class ArticlesCubit extends Cubit<ArticlesState> {
 
   final repo = ArticlesRepository();
 
-  Future<void> fetch() async {
+  Future<void> fetch(String keyword) async {
     emit(const ArticlesFetchLoading());
     try {
-      final data = await repo.fetch();
+      final data = await repo.fetch(keyword);
 
       emit(ArticlesFetchSuccess(data: data));
     } catch (e) {

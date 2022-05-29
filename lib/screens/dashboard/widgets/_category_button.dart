@@ -13,10 +13,12 @@ class _CategoryCustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<CategoryProvider>(context);
+    final newsCubit = BlocProvider.of<TopHeadlinesCubit>(context);
 
     return InkWell(
       onTap: () {
         categoryProvider.categoryIndexUpdate = categoryIndex;
+        newsCubit.fetch(categoryName);
       },
       child: AnimatedOpacity(
         duration: const Duration(milliseconds: 350),

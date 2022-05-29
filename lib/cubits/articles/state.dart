@@ -1,9 +1,8 @@
-
 part of 'cubit.dart';
 
 @immutable
 class ArticlesState extends Equatable {
-  final Article? data;
+  final List<Article>? data;
   final String? message;
 
   const ArticlesState({
@@ -12,7 +11,10 @@ class ArticlesState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [data, message,];
+  List<Object?> get props => [
+        data,
+        message,
+      ];
 }
 
 @immutable
@@ -20,15 +22,15 @@ class ArticlesDefault extends ArticlesState {}
 
 @immutable
 class ArticlesFetchLoading extends ArticlesState {
-    const ArticlesFetchLoading(): super();
+  const ArticlesFetchLoading() : super();
 }
 
 @immutable
 class ArticlesFetchSuccess extends ArticlesState {
-    const ArticlesFetchSuccess({Article? data}): super(data: data);
+  const ArticlesFetchSuccess({List<Article>? data}) : super(data: data);
 }
 
 @immutable
 class ArticlesFetchFailed extends ArticlesState {
-    const ArticlesFetchFailed({String? message}): super(message: message);
+  const ArticlesFetchFailed({String? message}) : super(message: message);
 }

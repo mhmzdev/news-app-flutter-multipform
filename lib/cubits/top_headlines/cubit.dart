@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/constants/constants.dart';
 import 'package:news_app/models/news.dart';
 
@@ -13,11 +14,25 @@ class TopHeadlinesCubit extends Cubit<TopHeadlinesState> {
 
   final repository = NewsRepository();
 
-  Future<void> fetchNews() async {
+  Future<void> fetch(String category) async {
     emit(const TopHeadlinesLoading());
 
     try {
-      final data = await repository.fetchNews();
+      Duration? difference;
+      final currentTime = DateTime.now();
+      List<News?>? data = [];
+
+      data = await repository.fetchHive(category);
+
+      DateTime? categoryTime = Hive.box('app').get('categoryTime');
+      if (categoryTime != null) {
+        difference = currentTime.difference(categoryTime);
+      }
+
+      if (data == null || (difference != null && difference.inHours > 1)) {
+        data = await repository.fetchApi(category);
+      }
+
       emit(
         TopHeadlinesSuccess(data: data),
       );
