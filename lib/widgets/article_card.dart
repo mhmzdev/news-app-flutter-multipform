@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:news_app/configs/configs.dart';
 import 'package:news_app/models/article/article.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ArticleCard extends StatelessWidget {
   final Article article;
+
   const ArticleCard({
-    Key? key,
     required this.article,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -37,23 +39,26 @@ class ArticleCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: AppDimensions.normalize(35),
-              height: AppDimensions.normalize(35),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(
-                  AppDimensions.normalize(3),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  article.title!.substring(0, 1),
-                  style: AppText.h1b!.copyWith(
-                    color: Colors.grey,
+            Column(
+              children: [
+                Container(
+                  width: AppDimensions.normalize(35),
+                  height: AppDimensions.normalize(35),
+                  decoration: BoxDecoration(
+                    // image: DecorationImage(
+                    //   image: NetworkImage(article.urlToImage!),
+                    // ),
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.normalize(3),
+                    ),
                   ),
                 ),
-              ),
+                Text(
+                  article.publishedAt!,
+                  style: AppText.b2,
+                )
+              ],
             ),
             Space.x1!,
             Expanded(
@@ -61,14 +66,25 @@ class ArticleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    article.description!.length > 50
+                    article.title!.length > 50
                         ? '${article.description!.substring(0, 50)}...'
                         : article.description!,
                     style: AppText.h3b!.copyWith(
                       height: 1.1,
                     ),
                   ),
+                  Space.y1!,
+                  Text(
+                    'Name',
+                    // articleSource.name!,
+                    style: AppText.b2,
+                  ),
                   Space.y!,
+                  Text(
+                    article.description!.length > 50
+                        ? '${article.description!.substring(0, 50)}...'
+                        : article.description!,
+                  )
                 ],
               ),
             ),

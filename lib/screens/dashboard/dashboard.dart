@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/animations/bottom_animation.dart';
 import 'package:news_app/configs/app.dart';
 import 'package:news_app/configs/configs.dart';
+import 'package:news_app/cubits/articles/cubit.dart';
 import 'package:news_app/cubits/top_headlines/cubit.dart';
+import 'package:news_app/models/article/article.dart';
 import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
+import 'package:news_app/widgets/article_card.dart';
 import 'package:news_app/widgets/custom_text_field.dart';
 import 'package:news_app/widgets/headlines_card.dart';
 import 'package:news_app/utils/app_utils.dart';
@@ -26,6 +29,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     final newsCubit = BlocProvider.of<TopHeadlinesCubit>(context);
+    final articleCubit = BlocProvider.of<ArticlesCubit>(context);
+
     final categoryProvider =
         Provider.of<CategoryProvider>(context, listen: false);
 
@@ -33,6 +38,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       newsCubit.fetch(
         AppUtils.categories[categoryProvider.categoryIndexGet],
       );
+    }
+    if (articleCubit.state.data == null || articleCubit.state.data!.isEmpty) {
+      articleCubit.fetch(keyword: 'latest');
     }
     super.initState();
   }
@@ -146,6 +154,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 textInputType: TextInputType.text,
               ),
               Space.y1!,
+              BlocBuilder<ArticlesCubit, ArticlesState>(
+                builder: (context, state) {
+                  if (state is TopHeadlinesLoading) {
+                    return const LinearProgressIndicator();
+                  } else if (state is TopHeadlinesFailure) {
+                    return Text(state.message!);
+                  } else if (state is TopHeadlinesSuccess) {
+                    List<Article> recentNews = List.generate(
+                        state.data!.length, (index) => state.data![index]);
+                    return Column(
+                      children: recentNews
+                          .map(
+                            (article) => BottomAnimator(
+                              child: ArticleCard(
+                                article: article,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Something Went Wrong!'),
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),

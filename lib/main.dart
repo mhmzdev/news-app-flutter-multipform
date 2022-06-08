@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:news_app/cubits/articles/cubit.dart';
 import 'package:news_app/cubits/top_headlines/cubit.dart';
+import 'package:news_app/models/article/article.dart';
+import 'package:news_app/models/article/article_source.dart';
 import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
 import 'package:news_app/screens/dashboard/dashboard.dart';
@@ -15,9 +18,11 @@ void main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter<News>(NewsAdapter());
+  Hive.registerAdapter<Article>(ArticleAdapter());
 
   await Hive.openBox('app');
   await Hive.openBox('newsBox');
+  await Hive.openBox('articlesbox');
 
   runApp(const MyApp());
 }
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => TopHeadlinesCubit()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
+        BlocProvider(create: (context) => ArticlesCubit()),
       ],
       child: MaterialApp(
         title: 'News App',

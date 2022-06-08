@@ -3,13 +3,15 @@ part of 'cubit.dart';
 class ArticlesDataProvider {
   static final dio = Dio();
   static const apiKey = Constants.apiKey;
+  static final cache = Hive.box('articlesbox');
+  static final appCache = Hive.box('app');
 
   static Future<List<Article>> fetch({String? keyword}) async {
     try {
       keyword ?? 'latest';
 
       final response = await dio.get(
-        'https://newsapi.org/v2/everything/q=$keyword',
+        'https://newsapi.org/v2/everything?q=$keyword',
         options: Options(
           headers: {
             'Authorization': apiKey,
@@ -40,6 +42,22 @@ class ArticlesDataProvider {
       }
     } catch (e) {
       throw Exception("Internal Server Error");
+    }
+  }
+
+  static Future<List<Article>?> fetchHive(String keyword) async {
+    try {
+      List? cachedArticle = cache.get(keyword);
+
+      if (cachedArticle == null) return null;
+
+      List<Article>? article = List.generate(
+        cachedArticle.length,
+        (index) => cachedArticle[index],
+      );
+      return article;
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

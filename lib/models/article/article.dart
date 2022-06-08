@@ -1,16 +1,29 @@
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
 import 'package:news_app/models/article/article_source.dart';
 
-class Article {
+part 'article.g.dart';
+
+@HiveType(typeId: 0)
+class Article extends HiveObject {
+  @HiveField(0)
   final ArticleSource? source;
+  @HiveField(1)
   final String? author;
+  @HiveField(2)
   final String? title;
+  @HiveField(3)
   final String? description;
+  @HiveField(4)
   final String? url;
+  @HiveField(5)
   final String? urlToImage;
+  @HiveField(6)
   final String? publishedAt;
+  @HiveField(7)
   final String? content;
+  @HiveField(8)
   Article({
     this.source,
     this.author,
