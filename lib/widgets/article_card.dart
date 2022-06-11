@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'package:news_app/configs/configs.dart';
 import 'package:news_app/models/article/article.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:news_app/screens/article_content/article_content.dart';
 
 class ArticleCard extends StatelessWidget {
   final Article article;
@@ -20,7 +20,7 @@ class ArticleCard extends StatelessWidget {
       margin: Space.all(0, 0.5),
       padding: Space.all(0.5, 1),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.c!.background,
         borderRadius: BorderRadius.circular(AppDimensions.normalize(3)),
         boxShadow: const [
           BoxShadow(
@@ -32,9 +32,17 @@ class ArticleCard extends StatelessWidget {
         ],
       ),
       child: InkWell(
-        onTap: () => launchUrl(
-          Uri.parse(article.url!),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ArticleContentScreen(
+              article: article,
+            ),
+          ),
         ),
+        // onTap: () => launchUrl(
+        //   Uri.parse(article.url!),
+        // ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -8,6 +8,7 @@ import 'package:news_app/models/article/article.dart';
 import 'package:news_app/models/article/article_source.dart';
 import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
+import 'package:news_app/providers/theme_provider.dart';
 import 'package:news_app/screens/dashboard/dashboard.dart';
 import 'package:news_app/screens/splash/splash.dart';
 import 'package:news_app/screens/top_stories/top_stories.dart';
@@ -40,21 +41,43 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        BlocProvider(create: (context) => ArticlesCubit()),
-        BlocProvider(create: (context) => TopHeadlinesCubit()),
+        BlocProvider(create: (_) => ArticlesCubit()),
+        BlocProvider(create: (_) => TopHeadlinesCubit()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
       ],
-      child: MaterialApp(
-        title: 'News App',
-        debugShowCheckedModeBanner: false,
-        theme: theme.themeLight,
-        initialRoute: '/splash',
-        routes: {
-          '/splash': (context) => const SplashScreen(),
-          '/dashboard': (context) => const DashboardScreen(),
-          '/top-stories': (context) => const TopStoriesScreen(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialChild(
+            provider: themeProvider,
+          );
         },
       ),
+    );
+  }
+}
+
+class MaterialChild extends StatelessWidget {
+  final ThemeProvider provider;
+  const MaterialChild({
+    Key? key,
+    required this.provider,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'News App',
+      debugShowCheckedModeBanner: false,
+      themeMode: provider.isDark ? ThemeMode.dark : ThemeMode.light,
+      theme: theme.themeLight,
+      darkTheme: theme.themeDark,
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
+        '/top-stories': (context) => const TopStoriesScreen(),
+      },
     );
   }
 }

@@ -5,10 +5,11 @@ class _CategoryTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    App.init(context);
     return Container(
       padding: Space.v,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.c!.background,
         borderRadius: BorderRadius.circular(
           AppDimensions.normalize(3),
         ),

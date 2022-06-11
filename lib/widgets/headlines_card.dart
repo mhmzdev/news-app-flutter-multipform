@@ -18,7 +18,7 @@ class HeadlinesCard extends StatelessWidget {
       margin: Space.all(0, 0.5),
       padding: Space.all(0.5, 1),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.c!.background,
         borderRadius: BorderRadius.circular(
           AppDimensions.normalize(3),
         ),

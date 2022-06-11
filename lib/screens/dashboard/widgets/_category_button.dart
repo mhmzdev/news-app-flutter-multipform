@@ -42,7 +42,7 @@ class _CategoryCustomButton extends StatelessWidget {
               style: AppText.b2b!.copyWith(
                 color: categoryProvider.categoryIndexGet == categoryIndex
                     ? Colors.white
-                    : Colors.black,
+                    : AppTheme.c!.text,
               ),
             ),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/animations/entrance_fader.dart';
 import 'package:news_app/configs/app.dart';
 import 'package:news_app/configs/configs.dart';
+import 'package:news_app/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,9 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  void initTheme() {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    themeProvider.init();
+  }
+
   @override
   void initState() {
-    _nextScreen();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      initTheme();
+      _nextScreen();
+    });
     super.initState();
   }
 

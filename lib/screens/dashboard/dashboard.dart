@@ -8,6 +8,7 @@ import 'package:news_app/cubits/top_headlines/cubit.dart';
 import 'package:news_app/models/article/article.dart';
 import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
+import 'package:news_app/providers/theme_provider.dart';
 import 'package:news_app/widgets/article_card.dart';
 import 'package:news_app/widgets/custom_text_field.dart';
 import 'package:news_app/widgets/headlines_card.dart';
@@ -60,6 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     App.init(context);
 
     final articleCubit = ArticlesCubit.cubit(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -98,8 +100,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     Space.xm!,
                     Expanded(
-                      child: CircleAvatar(
-                        maxRadius: AppDimensions.normalize(20),
+                      child: InkWell(
+                        onTap: () {
+                          themeProvider.theme = !themeProvider.theme;
+                        },
+                        child: Container(
+                          height: AppDimensions.normalize(30),
+                          width: AppDimensions.normalize(30),
+                          decoration: BoxDecoration(
+                            color: themeProvider.isDark
+                                ? Colors.grey[800]
+                                : Colors.grey[200],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.brightness_6_outlined,
+                            color: themeProvider.isDark
+                                ? Colors.yellow
+                                : Colors.grey,
+                            size: AppDimensions.normalize(15),
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -132,7 +153,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 BlocBuilder<TopHeadlinesCubit, TopHeadlinesState>(
                   builder: (context, state) {
                     if (state is TopHeadlinesLoading) {
-                      return const LinearProgressIndicator();
+                      return Column(
+                        children: [
+                          const LinearProgressIndicator(),
+                          for (int i = 0; i < 3; i++)
+                            const _ShimmerArticleCard(
+                              isArticle: false,
+                            )
+                        ],
+                      );
                     } else if (state is TopHeadlinesFailure) {
                       return Text(state.error!);
                     } else if (state is TopHeadlinesSuccess) {
@@ -193,7 +222,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         children: [
                           const LinearProgressIndicator(),
                           for (int i = 0; i < 3; i++)
-                            const _ShimmerArticleCard(),
+                            const _ShimmerArticleCard(
+                              isArticle: true,
+                            ),
                         ],
                       );
                     } else if (state is ArticlesFetchFailed) {

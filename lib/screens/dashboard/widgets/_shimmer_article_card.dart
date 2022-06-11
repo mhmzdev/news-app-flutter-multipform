@@ -1,17 +1,23 @@
 part of '../dashboard.dart';
 
 class _ShimmerArticleCard extends StatelessWidget {
-  const _ShimmerArticleCard({Key? key}) : super(key: key);
+  final bool isArticle;
+  const _ShimmerArticleCard({
+    Key? key,
+    required this.isArticle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(AppDimensions.normalize(3)),
       child: Shimmer.fromColors(
-        highlightColor: Colors.grey[400]!,
+        highlightColor: Colors.grey[300]!,
         baseColor: Colors.white,
         child: Container(
-          height: AppDimensions.normalize(65),
+          height: isArticle
+              ? AppDimensions.normalize(65)
+              : AppDimensions.normalize(45),
           width: double.infinity,
           margin: Space.all(0, 0.35),
           decoration: BoxDecoration(
