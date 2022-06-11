@@ -19,6 +19,7 @@ void main() async {
 
   Hive.registerAdapter<News>(NewsAdapter());
   Hive.registerAdapter<Article>(ArticleAdapter());
+  Hive.registerAdapter<ArticleSource>(ArticleSourceAdapter());
 
   await Hive.openBox('app');
   await Hive.openBox('newsBox');
@@ -39,9 +40,9 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        BlocProvider(create: (context) => ArticlesCubit()),
         BlocProvider(create: (context) => TopHeadlinesCubit()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
-        BlocProvider(create: (context) => ArticlesCubit()),
       ],
       child: MaterialApp(
         title: 'News App',

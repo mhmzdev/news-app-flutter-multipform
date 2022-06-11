@@ -5,8 +5,8 @@ import 'package:news_app/models/article/article_source.dart';
 
 part 'article.g.dart';
 
-@HiveType(typeId: 0)
-class Article extends HiveObject {
+@HiveType(typeId: 1)
+class Article {
   @HiveField(0)
   final ArticleSource? source;
   @HiveField(1)
@@ -23,7 +23,7 @@ class Article extends HiveObject {
   final String? publishedAt;
   @HiveField(7)
   final String? content;
-  @HiveField(8)
+
   Article({
     this.source,
     this.author,

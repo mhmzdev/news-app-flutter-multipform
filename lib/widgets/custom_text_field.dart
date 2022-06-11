@@ -11,6 +11,7 @@ class CustomTextField extends StatefulWidget {
   final double? width;
   final bool? isPass;
   final Widget? prefixIcon;
+  final bool? isSuffixIcon;
   final String? initialValue;
 
   final FormFieldValidator? validatorFtn;
@@ -29,6 +30,7 @@ class CustomTextField extends StatefulWidget {
     this.onFieldSubmit,
     this.errorText,
     this.prefixIcon,
+    this.isSuffixIcon = false,
     this.isPass = false,
     this.width = double.infinity,
     this.textInputAction = TextInputAction.done,
@@ -57,7 +59,8 @@ class CustomTextFieldState extends State<CustomTextField> {
         focusNode: widget.node,
         decoration: InputDecoration(
           errorText: widget.errorText,
-          prefixIcon: widget.prefixIcon,
+          prefixIcon: widget.isSuffixIcon! ? null : widget.prefixIcon,
+          suffixIcon: widget.prefixIcon,
           filled: true,
           contentPadding: Space.all(0.75, 0.9),
           hintText: widget.hint,

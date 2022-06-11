@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:news_app/configs/configs.dart';
 import 'package:news_app/models/article/article.dart';
@@ -20,9 +21,7 @@ class ArticleCard extends StatelessWidget {
       padding: Space.all(0.5, 1),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.normalize(3),
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.normalize(3)),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
@@ -42,20 +41,28 @@ class ArticleCard extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  width: AppDimensions.normalize(35),
-                  height: AppDimensions.normalize(35),
+                  width: AppDimensions.normalize(45),
+                  height: AppDimensions.normalize(45),
                   decoration: BoxDecoration(
-                    // image: DecorationImage(
-                    //   image: NetworkImage(article.urlToImage!),
-                    // ),
+                    image: article.urlToImage != null
+                        ? DecorationImage(
+                            image: NetworkImage(article.urlToImage!),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(
                       AppDimensions.normalize(3),
                     ),
                   ),
                 ),
+                Space.y!,
                 Text(
-                  article.publishedAt!,
+                  DateFormat('EE d, yyyy').format(
+                    DateTime.parse(
+                      article.publishedAt!,
+                    ),
+                  ),
                   style: AppText.b2,
                 )
               ],
@@ -66,24 +73,19 @@ class ArticleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    article.title!.length > 50
-                        ? '${article.description!.substring(0, 50)}...'
-                        : article.description!,
-                    style: AppText.h3b!.copyWith(
-                      height: 1.1,
-                    ),
-                  ),
-                  Space.y1!,
-                  Text(
-                    'Name',
-                    // articleSource.name!,
-                    style: AppText.b2,
+                    article.title!,
+                    style: AppText.h3b!,
+                    maxLines: 2,
                   ),
                   Space.y!,
                   Text(
-                    article.description!.length > 50
-                        ? '${article.description!.substring(0, 50)}...'
-                        : article.description!,
+                    article.source!.name!,
+                    style: AppText.b2b,
+                  ),
+                  Space.y!,
+                  Text(
+                    article.description!,
+                    maxLines: 3,
                   )
                 ],
               ),

@@ -6,10 +6,8 @@ class ArticlesDataProvider {
   static final cache = Hive.box('articlesbox');
   static final appCache = Hive.box('app');
 
-  static Future<List<Article>> fetch({String? keyword}) async {
+  static Future<List<Article>> fetch(String keyword) async {
     try {
-      keyword ?? 'latest';
-
       final response = await dio.get(
         'https://newsapi.org/v2/everything?q=$keyword',
         options: Options(
@@ -28,6 +26,9 @@ class ArticlesDataProvider {
           articlesList[index],
         ),
       );
+
+      await cache.put(keyword, articles);
+      await appCache.put('articlesTime', DateTime.now());
 
       return articles;
     } on DioError catch (e) {

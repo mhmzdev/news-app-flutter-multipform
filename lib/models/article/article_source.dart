@@ -1,8 +1,16 @@
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
+
+part 'article_source.g.dart';
+
+@HiveType(typeId: 2)
 class ArticleSource {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final String? name;
+
   ArticleSource({
     this.id,
     this.name,
