@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/cubits/articles/cubit.dart';
 import 'package:news_app/cubits/top_headlines/cubit.dart';
@@ -17,6 +18,8 @@ import 'configs/core_theme.dart' as theme;
 
 void main() async {
   await Hive.initFlutter();
+
+  await dotenv.load(fileName: ".env");
 
   Hive.registerAdapter<News>(NewsAdapter());
   Hive.registerAdapter<Article>(ArticleAdapter());

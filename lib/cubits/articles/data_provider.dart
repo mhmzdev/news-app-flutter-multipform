@@ -2,7 +2,9 @@ part of 'cubit.dart';
 
 class ArticlesDataProvider {
   static final dio = Dio();
-  static const apiKey = Constants.apiKey;
+
+  /// [apiKey] is required, you can get it from newsapi.org
+  static final apiKey = dotenv.env['apiKey'];
   static final cache = Hive.box('articlesbox');
   static final appCache = Hive.box('app');
 

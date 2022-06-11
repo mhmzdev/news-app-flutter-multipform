@@ -13,7 +13,7 @@ class _ShimmerArticleCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(AppDimensions.normalize(3)),
       child: Shimmer.fromColors(
         highlightColor: Colors.grey[300]!,
-        baseColor: Colors.white,
+        baseColor: AppTheme.c!.background!,
         child: Container(
           height: isArticle
               ? AppDimensions.normalize(65)
