@@ -3,9 +3,22 @@ part of '../../dashboard.dart';
 class _TopStoriesTablet extends StatelessWidget {
   const _TopStoriesTablet({Key? key}) : super(key: key);
 
+  // local List/Array --> API data push
+  // use local list to map Cards
+
+  // scrollController -> ListView | SingleScrollView
+
+  // onLoading:
+  // check if controller == end of screen
+  // API call --> local list++;
+
+  // onRefresh:
+  // local list = [] empty;
+  // API (one time) --> local list store;
+
   @override
   Widget build(BuildContext context) {
-    final topStories = TopHeadlinesCubit.cubit(context);
+    App.init(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -14,14 +27,16 @@ class _TopStoriesTablet extends StatelessWidget {
           'Top Stories',
           style: AppText.h1b,
         ),
+        Space.y!,
+        const CategoryTabs(),
         Space.y1!,
-        Expanded(
-          child: BlocBuilder<TopHeadlinesCubit, TopHeadlinesState>(
-            builder: (context, state) {
-              if (state is TopHeadlinesLoading) {
-                return const LinearProgressIndicator();
-              } else if (state is TopHeadlinesSuccess) {
-                return SingleChildScrollView(
+        BlocBuilder<TopHeadlinesCubit, TopHeadlinesState>(
+          builder: (context, state) {
+            if (state is TopHeadlinesLoading) {
+              return const LinearProgressIndicator();
+            } else if (state is TopHeadlinesSuccess) {
+              return Expanded(
+                child: SingleChildScrollView(
                   padding: Space.h,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,12 +46,16 @@ class _TopStoriesTablet extends StatelessWidget {
                         )
                         .toList(),
                   ),
-                );
-              } else {
-                return const Text('Something went wrong');
-              }
-            },
-          ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                  'Something went wrong',
+                ),
+              );
+            }
+          },
         )
       ],
     );

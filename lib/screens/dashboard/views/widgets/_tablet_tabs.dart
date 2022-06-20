@@ -29,6 +29,7 @@ class _TabletTabs extends StatelessWidget {
               style: isSelected
                   ? AppText.b1!.copyWith(
                       color: Colors.white,
+                      height: 1.2,
                     )
                   : AppText.b1,
               textAlign: TextAlign.center,

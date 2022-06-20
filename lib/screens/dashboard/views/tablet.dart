@@ -32,6 +32,7 @@ class _DashboardTabletState extends State<DashboardTablet> {
                 children: [
                   Space.x!,
                   InkWell(
+                    hoverColor: Colors.transparent,
                     onTap: () {
                       themeProvider.theme = !themeProvider.theme;
                     },
@@ -53,23 +54,24 @@ class _DashboardTabletState extends State<DashboardTablet> {
                     ),
                   ),
                   Space.x1!,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Your breifing',
-                        style: AppText.b1b!.copyWith(
-                          fontSize: AppDimensions.normalize(13),
-                          height: 1.1,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Your breifing',
+                          style: AppText.h1b!.copyWith(
+                            height: 1.1,
+                          ),
                         ),
-                      ),
-                      Text(
-                        DateFormat('EEEE, dd MMM').format(DateTime.now()),
-                        style: AppText.b2!.copyWith(
-                          color: Colors.grey,
-                        ),
-                      )
-                    ],
+                        Text(
+                          DateFormat('EEEE, dd MMM').format(DateTime.now()),
+                          style: AppText.b2!.copyWith(
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   Space.x2!,
                   Expanded(
@@ -78,7 +80,9 @@ class _DashboardTabletState extends State<DashboardTablet> {
                       height: AppDimensions.normalize(22),
                       width: AppDimensions.normalize(100),
                       decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: themeProvider.isDark
+                            ? AppTheme.c!.background
+                            : Colors.grey[200],
                         borderRadius: BorderRadius.circular(
                           UIProps.radius,
                         ),

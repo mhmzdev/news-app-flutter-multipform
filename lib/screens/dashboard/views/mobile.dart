@@ -97,6 +97,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
                       Space.xm!,
                       Expanded(
                         child: InkWell(
+                          hoverColor: Colors.transparent,
                           onTap: () {
                             themeProvider.theme = !themeProvider.theme;
                           },
@@ -122,7 +123,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
                     ],
                   ),
                   Space.y1!,
-                  const _CategoryTabs(),
+                  const CategoryTabs(),
                   Space.y1!,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

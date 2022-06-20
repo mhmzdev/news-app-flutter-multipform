@@ -1,7 +1,7 @@
 part of '../../dashboard.dart';
 
-class _CategoryTabs extends StatelessWidget {
-  const _CategoryTabs({Key? key}) : super(key: key);
+class CategoryTabs extends StatelessWidget {
+  const CategoryTabs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
