@@ -26,7 +26,9 @@ part 'views/tablet.dart';
 
 part 'views/widgets/_tablet_tabs.dart';
 part 'views/widgets/_category_tabs.dart';
+part 'views/widgets/_article_tablet.dart';
 part 'views/widgets/_category_button.dart';
+part 'views/widgets/_top_stories_tablet.dart';
 part 'views/widgets/_shimmer_article_card.dart';
 
 class DashboardScreen extends StatefulWidget {

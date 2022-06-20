@@ -1,7 +1,17 @@
 part of '../dashboard.dart';
 
-class DashboardTablet extends StatelessWidget {
+class DashboardTablet extends StatefulWidget {
   const DashboardTablet({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardTablet> createState() => _DashboardTabletState();
+}
+
+class _DashboardTabletState extends State<DashboardTablet> {
+  final List<Widget> views = const [
+    _TopStoriesTablet(),
+    _ArticleTablet(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +58,7 @@ class DashboardTablet extends StatelessWidget {
                     children: [
                       Text(
                         'Your breifing',
-                        style: AppText.h1b!.copyWith(
+                        style: AppText.b1b!.copyWith(
                           fontSize: AppDimensions.normalize(13),
                           height: 1.1,
                         ),
@@ -61,48 +71,40 @@ class DashboardTablet extends StatelessWidget {
                       )
                     ],
                   ),
-                  Space.xm!,
-                  Container(
-                    padding: Space.all(0.5, 0.4),
-                    height: AppDimensions.normalize(22),
-                    width: AppDimensions.normalize(100),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(
-                        UIProps.radius,
+                  Space.x2!,
+                  Expanded(
+                    child: Container(
+                      padding: Space.all(0.5, 0.4),
+                      height: AppDimensions.normalize(22),
+                      width: AppDimensions.normalize(100),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(
+                          UIProps.radius,
+                        ),
                       ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: AppUtils.tabsLabel
-                          .asMap()
-                          .entries
-                          .map(
-                            (e) => _TabletTabs(
-                              entry: e,
-                            ),
-                          )
-                          .toList(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: AppUtils.tabsLabel
+                            .asMap()
+                            .entries
+                            .map(
+                              (e) => _TabletTabs(
+                                entry: e,
+                              ),
+                            )
+                            .toList(),
+                      ),
                     ),
                   ),
                   Space.x1!,
                 ],
               ),
-              Space.y1!,
+              Space.y2!,
               Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(),
-                    ),
-                  ],
+                child: Padding(
+                  padding: Space.h1!,
+                  child: views[tabs.index],
                 ),
               )
             ],

@@ -31,6 +31,7 @@ class _TabletTabs extends StatelessWidget {
                       color: Colors.white,
                     )
                   : AppText.b1,
+              textAlign: TextAlign.center,
             ),
           ),
         ),
