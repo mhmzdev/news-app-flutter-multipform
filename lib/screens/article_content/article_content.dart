@@ -36,6 +36,7 @@ class ArticleContentScreen extends StatelessWidget {
               CachedNetworkImage(
                 imageUrl: article.urlToImage!,
               ),
+              Space.y1!,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
