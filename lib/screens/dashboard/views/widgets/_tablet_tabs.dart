@@ -15,7 +15,8 @@ class _TabletTabs extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: () => tabs.index = entry.key,
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 350),
           padding: Space.all(1, 0),
           decoration: BoxDecoration(
             color: isSelected ? AppTheme.c!.primary : null,

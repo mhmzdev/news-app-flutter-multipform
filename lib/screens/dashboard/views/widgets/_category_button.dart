@@ -39,7 +39,10 @@ class _CategoryCustomButton extends StatelessWidget {
               toBeginningOfSentenceCase(
                 categoryName,
               )!,
-              style: AppText.b2b!.copyWith(
+              style: AppText.b2!.copyWith(
+                fontWeight: categoryProvider.categoryIndexGet == categoryIndex
+                    ? FontWeight.bold
+                    : FontWeight.normal,
                 color: categoryProvider.categoryIndexGet == categoryIndex
                     ? Colors.white
                     : AppTheme.c!.text,
