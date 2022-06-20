@@ -1,4 +1,4 @@
-part of '../dashboard.dart';
+part of '../../dashboard.dart';
 
 class _CategoryCustomButton extends StatelessWidget {
   final int categoryIndex;

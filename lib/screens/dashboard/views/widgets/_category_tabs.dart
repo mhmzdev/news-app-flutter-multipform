@@ -1,4 +1,4 @@
-part of '../dashboard.dart';
+part of '../../dashboard.dart';
 
 class _CategoryTabs extends StatelessWidget {
   const _CategoryTabs({Key? key}) : super(key: key);

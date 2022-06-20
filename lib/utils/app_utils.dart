@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class AppUtils {
   static const List<String> categories = [
     'general',
@@ -7,5 +9,10 @@ class AppUtils {
     'health',
     'sports',
     'entertainment',
+  ];
+
+  static const List<String> tabsLabel = [
+    'Top Stories',
+    'Articles',
   ];
 }

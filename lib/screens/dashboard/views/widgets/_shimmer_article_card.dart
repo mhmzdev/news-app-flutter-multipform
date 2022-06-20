@@ -1,4 +1,4 @@
-part of '../dashboard.dart';
+part of '../../dashboard.dart';
 
 class _ShimmerArticleCard extends StatelessWidget {
   final bool isArticle;

@@ -9,6 +9,7 @@ import 'package:news_app/models/article/article.dart';
 import 'package:news_app/models/article/article_source.dart';
 import 'package:news_app/models/news.dart';
 import 'package:news_app/providers/category_provider.dart';
+import 'package:news_app/providers/tab_provider.dart';
 import 'package:news_app/providers/theme_provider.dart';
 import 'package:news_app/screens/dashboard/dashboard.dart';
 import 'package:news_app/screens/splash/splash.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ArticlesCubit()),
         BlocProvider(create: (_) => TopHeadlinesCubit()),
+        ChangeNotifierProvider(create: (_) => TabProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
       ],
